@@ -22,7 +22,7 @@
 ### Backend
 
 1. **RawDataCrawler** ([Link](https://github.com/SearchKeywordAnalyzer/RawDataCrawler))
-   1. 주기별(예: 1분마다)로 **네이버 실시간 급상승 키워드와, 각 키워드 별 네이버 검색 결과를 크롤링
+   1. 주기별(예: 1분마다)로 **네이버 실시간 급상승 키워드와, 각 키워드 별 네이버 검색 결과를 크롤링**
    2. 크롤링 결과를 JSON 포맷으로 kafka에 전달
 
 2. **KeywordSummarizer**
@@ -40,7 +40,7 @@
    * JSON 포맷으로 Kafka에 흐르는 요약 데이터를, **구독자 리스트의 대상들에게 각자 설정한 알림 주기별로 전송**
 
 - ```json
-  [ {"id": "occidere", "period_minute": 60}, {"id": "twice", "period_minute": 1}, ... ]
+  [ {"id": "occidere", "period_minute": 60}, {"id": "twice", "period_minute": 1} ]
   ```
   - 내부적으로 **주기별로 구독자 리스트 캐시 갱신**
 
