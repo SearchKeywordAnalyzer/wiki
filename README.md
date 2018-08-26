@@ -26,23 +26,26 @@
    2. 크롤링 결과를 JSON 포맷으로 kafka에 전달
 
 2. **KeywordSummarizer**
-   1. Kafka에 저장된 JSON 형태의 Raw data를 가져와 **각 키워드별로 왜 실검에 올랐는지 요약 데이터를 생성**
 
-1. ```json
-   { "keyword": "트와이스", "summary": "트와이스는 9일 오후 6시 두 번째 스페셜 앨범 ‘서머 나이트(Summer Night)’의 타이틀곡 ‘댄스 더 나이트 어웨이(Dance The Night Away)’를 공개했다." }
-   ```
+   1. Kafka에 저장된 JSON 형태의 Raw data를 가져와 **각 키워드별로 왜 실검에 올랐는지 요약 데이터를 생성**
+      ````json
+      { "keyword": "트와이스", "summary": "트와이스는 9일 오후 6시 두 번째 스페셜 앨범 ‘서머 나이트(Summer Night)’의 타이틀곡 ‘댄스 더 나이트 어웨이(Dance The Night Away)’를 공개했다." }
+      ````
 
    2. 생성된 JSON 포맷의 요약 데이터를 Kafka에 전달
 
 3. **kafka_to_db.config**
+
    * JSON 포맷으로 Kafka에 흐르는 **요약 데이터를 실시간으로 DB에 insert 하는 Logstash** 파이프라인 필터
 4. **SummaryDataPublisher**
+
    * JSON 포맷으로 Kafka에 흐르는 요약 데이터를, **구독자 리스트의 대상들에게 각자 설정한 알림 주기별로 전송**
 
-- ```json
-  [ {"id": "occidere", "period_minute": 60}, {"id": "twice", "period_minute": 1} ]
-  ```
-  - 내부적으로 **주기별로 구독자 리스트 캐시 갱신**
+     ````json
+     [ {"id": "occidere", "period_minute": 60}, {"id": "twice", "period_minute": 1} ]
+     ````
+
+   * 내부적으로 **주기별로 구독자 리스트 캐시 갱신**
 
 5. **RestApiServer**
    * **비 정기적으로 요약 데이터를 요청을 받아서 처리**하는 **비동기 REST API 서버**
